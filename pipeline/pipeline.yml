@@ -1,0 +1,63 @@
+# YAML anchors
+shared:
+  - &task-merge-stack-and-config
+    task: merge-stack-and-config
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cycloid/cycloid-toolkit
+          tag: latest
+      run:
+        path: /usr/bin/merge-stack-and-config
+      inputs:
+        - name: git_config
+          path: "config"
+        - name: git_stack
+          path: "stack"
+      outputs:
+        - name: merged-stack
+          path: "merged-stack"
+
+groups:
+- name: publish
+  jobs:
+  - publish-image
+- name: delete
+  jobs:
+  - delete-image
+
+resources:
+- name: git_stack
+  type: git
+  source:
+    uri: https://github.com/olivier2t/resource-image-builder.git
+    branch: main
+
+- name: git_config
+  type: git
+  source:
+    uri: ((config_git_repository))
+    branch: ((config_git_branch))
+    private_key: ((config_git_ssh_key))
+    paths:
+      - ((project))/((env))/*
+
+- name: docker-image
+  type: docker-image
+  source:
+    email: ((docker-hub-email))
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+    repository: ((docker-hub-username))/((docker-hub-repo))
+
+jobs:
+- name: publish
+  public: true
+  serial: true
+  plan:
+  - get: git_stack
+  - put: docker-image
+    params:
+      build: dockerfiles/((dockerfile))
