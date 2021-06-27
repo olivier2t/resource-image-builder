@@ -1,0 +1,27 @@
+---
+version: '2'
+# Configuration of the Cycloid stack
+name: 'Resource Image Builder'
+canonical: 'resource-image-builder'
+status: 'public'
+description: |
+  Used to build and publish a Docker image used as a Concourse resource.
+keywords:
+  - 'docker'
+author: 'Olivier de Turckheim'
+image: |
+  https://raw.githubusercontent.com/olivier2t/resource-image-builder/main/icon.png
+technologies:
+  - technology: Debian
+    version: 9.x
+
+config:
+  default:
+    name: 'Default'
+    description: 'Default pipeline usecase'
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/variables-($ environment $).yml'
