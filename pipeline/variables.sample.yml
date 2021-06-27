@@ -10,12 +10,25 @@ config_git_branch: main
 #+ SSH key pair to fetch the config Git repository.
 config_git_ssh_key: ((ssh_config.ssh_key))
 
-dockerfile: nodejs
+#. dockerfile (required): ((dockerfile))
+#+ Dockfile from the stack to use to build the Docker image.
+dockerfile: ((dockerfile))
 
-docker-hub-email:
-docker-hub-username:
-docker-hub-password:
-docker-hub-repo:
+#. docker-hub-email (required): ((docker-hub-email))
+#+ Docker Hub email to use to publish the Docker image.
+docker-hub-email: ((docker-hub-email))
+
+#. docker-hub-username (required): ((docker-hub-username))
+#+ Docker Hub user to use to publish the Docker image.
+docker-hub-username: ((docker-hub-username))
+
+#. docker-hub-password (required): ((docker-hub-password))
+#+ Docker Hub password to use to publish the Docker image.
+docker-hub-password: ((docker-hub-password))
+
+#. docker-hub-repo (required): ((docker-hub-repo))
+#+ Docker Hub repository to use to publish the Docker image.
+docker-hub-repo: ((docker-hub-repo))
 
 #. env (required): ($ environment $)
 #+ Name of the project's environment.
