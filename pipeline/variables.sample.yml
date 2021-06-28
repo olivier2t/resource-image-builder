@@ -28,7 +28,7 @@ docker-hub-password: ((basic_auth_dockerhub-olivier2t.password))
 
 #. docker-hub-repo (required): ((docker-hub-repo))
 #+ Docker Hub repository to use to publish the Docker image.
-docker-hub-repo: olivier2t/arm
+docker-hub-repo: arm
 
 #. env (required): ($ environment $)
 #+ Name of the project's environment.
