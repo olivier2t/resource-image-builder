@@ -14,10 +14,6 @@
 #+ Resource name to embbed in the resource Docker image.
 resource: arm
 
-#. docker-hub-email (required): ((docker-hub-email))
-#+ Docker Hub email to use to publish the Docker image.
-docker-hub-email: olivier.deturckheim@cycloid.io
-
 #. docker-hub-username (required): ((docker-hub-username))
 #+ Docker Hub user to use to publish the Docker image.
 docker-hub-username: ((basic_auth_dockerhub-olivier2t.username))
