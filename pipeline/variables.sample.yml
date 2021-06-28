@@ -1,34 +1,34 @@
 #. config_git_repository (required): git@github.com:MyUser/config.git
 #+ Git repository URL containing the config of the stack.
-config_git_repository: git@github.com:MyUser/config.git
+#config_git_repository: git@github.com:MyUser/config.git
 
 #. config_git_branch (required): main
 #+ Branch of the config Git repository.
-config_git_branch: main
+#config_git_branch: main
 
 #. config_git_ssh_key (required): ((ssh_config.ssh_key))
 #+ SSH key pair to fetch the config Git repository.
-config_git_ssh_key: ((ssh_config.ssh_key))
+#config_git_ssh_key: ((ssh_config.ssh_key))
 
 #. resource (required): arm
 #+ Resource name to embbed in the resource Docker image.
-resource: ((resource))
+resource: arm
 
 #. docker-hub-email (required): ((docker-hub-email))
 #+ Docker Hub email to use to publish the Docker image.
-docker-hub-email: ((docker-hub-email))
+docker-hub-email: olivier.deturckheim@cycloid.io
 
 #. docker-hub-username (required): ((docker-hub-username))
 #+ Docker Hub user to use to publish the Docker image.
-docker-hub-username: ((docker-hub-username))
+docker-hub-username: ((basic_auth_dockerhub-olivier2t.username))
 
 #. docker-hub-password (required): ((docker-hub-password))
 #+ Docker Hub password to use to publish the Docker image.
-docker-hub-password: ((docker-hub-password))
+docker-hub-password: ((basic_auth_dockerhub-olivier2t.password))
 
 #. docker-hub-repo (required): ((docker-hub-repo))
 #+ Docker Hub repository to use to publish the Docker image.
-docker-hub-repo: ((docker-hub-repo))
+docker-hub-repo: olivier2t/arm
 
 #. env (required): ($ environment $)
 #+ Name of the project's environment.
