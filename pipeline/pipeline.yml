@@ -56,5 +56,7 @@ jobs:
   plan:
   - get: git_stack
   - put: docker-image
+    inputs:
+    - name: git_stack
     params:
       build: git_stack/resources/((resource))/Dockerfile
