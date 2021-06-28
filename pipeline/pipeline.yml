@@ -39,7 +39,7 @@ jobs:
       outputs:
       - name: image
       params:
-        CONTEXT: git_stack/resources/((resource))/Dockerfile
+        CONTEXT: git_stack/resources/((resource))
       run:
         path: build
   - put: docker-image
