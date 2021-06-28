@@ -23,10 +23,7 @@ shared:
 groups:
 - name: publish
   jobs:
-  - publish-image
-- name: delete
-  jobs:
-  - delete-image
+  - publish
 
 resources:
 - name: git_stack
@@ -35,14 +32,14 @@ resources:
     uri: https://github.com/olivier2t/resource-image-builder.git
     branch: main
 
-- name: git_config
-  type: git
-  source:
-    uri: ((config_git_repository))
-    branch: ((config_git_branch))
-    private_key: ((config_git_ssh_key))
-    paths:
-      - ((project))/((env))/*
+#- name: git_config
+#  type: git
+#  source:
+#    uri: ((config_git_repository))
+#    branch: ((config_git_branch))
+#    private_key: ((config_git_ssh_key))
+#    paths:
+#      - ((project))/((env))/*
 
 - name: docker-image
   type: docker-image
