@@ -1,48 +1,21 @@
-# YAML anchors
-shared:
-  - &task-merge-stack-and-config
-    task: merge-stack-and-config
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: cycloid/cycloid-toolkit
-          tag: latest
-      run:
-        path: /usr/bin/merge-stack-and-config
-      inputs:
-        - name: git_config
-          path: "config"
-        - name: git_stack
-          path: "stack"
-      outputs:
-        - name: merged-stack
-          path: "merged-stack"
-
 groups:
-- name: publish
+- name: build-and-push
   jobs:
-  - publish
+  - build-and-push
 
 resources:
+# The git repo with our Dockerfile
 - name: git_stack
   type: git
+  icon: github
   source:
     uri: https://github.com/olivier2t/resource-image-builder.git
     branch: main
 
-#- name: git_config
-#  type: git
-#  source:
-#    uri: ((config_git_repository))
-#    branch: ((config_git_branch))
-#    private_key: ((config_git_ssh_key))
-#    paths:
-#      - ((project))/((env))/*
-
+# Where we will push the image
 - name: docker-image
-  type: docker-image
+  type: registry-image
+  icon: docker
   source:
     email: ((docker-hub-email))
     username: ((docker-hub-username))
@@ -50,13 +23,25 @@ resources:
     repository: ((docker-hub-username))/((docker-hub-repo))
 
 jobs:
-- name: publish
-  public: true
-  serial: true
+- name: build-and-push
   plan:
   - get: git_stack
+  - task: build-image
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: vito/oci-build-task
+      inputs:
+      - name: git_stack
+      outputs:
+      - name: image
+      params:
+        CONTEXT: git_stack/resources/((resource))/Dockerfile
+      run:
+        path: build
   - put: docker-image
-    inputs:
-    - name: git_stack
     params:
-      build: git_stack/resources/((resource))/Dockerfile
+      image: image/image.tar
