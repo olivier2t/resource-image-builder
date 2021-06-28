@@ -60,4 +60,4 @@ jobs:
   - get: git_stack
   - put: docker-image
     params:
-      build: dockerfiles/((dockerfile))
+      build: resources/((resource))/Dockerfile
