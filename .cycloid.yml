@@ -3,7 +3,7 @@ version: '2'
 # Configuration of the Cycloid stack
 name: 'Resource Image Builder'
 canonical: 'resource-image-builder'
-status: 'public'
+status: 'private'
 description: |
   Used to build and publish a Docker image used as a Concourse resource.
 keywords:
